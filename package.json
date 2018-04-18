@@ -19,5 +19,13 @@
     "gulp-browserify": "^0.5.1",
     "gulp-regex-rename": "^0.1.0",
     "gulp-rename": "^1.2.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/balovbohdan/js-gamedev-tutorial.git"
+  },
+  "bugs": {
+    "url": "https://github.com/balovbohdan/js-gamedev-tutorial/issues"
+  },
+  "homepage": "https://github.com/balovbohdan/js-gamedev-tutorial#readme"
 }
