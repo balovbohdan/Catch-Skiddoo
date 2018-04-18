@@ -1,4 +1,4 @@
-./node_modules
-./dist
-./.idea
-./.git
+node_modules/*
+dist/*
+.idea/*
+.git/*

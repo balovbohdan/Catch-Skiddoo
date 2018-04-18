@@ -27,5 +27,6 @@
   "bugs": {
     "url": "https://github.com/balovbohdan/js-gamedev-tutorial/issues"
   },
-  "homepage": "https://github.com/balovbohdan/js-gamedev-tutorial#readme"
+  "homepage": "https://github.com/balovbohdan/js-gamedev-tutorial#readme",
+  "keywords": []
 }
