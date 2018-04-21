@@ -1,5 +1,5 @@
-import GameObjects from "./GameObjects";
-import Player from "./Player";
+import GameObjects from "./gameObjects/GameObjects";
+import Player from "./gameObjects/Player";
 import EventsHandler from "./EventsHandler";
 import Window from "./Window";
 import GameLoop from "./GameLoop";
