@@ -1,5 +1,5 @@
 import GOCS from './GOCS';
-import Component from './GOCS.Component';
+import './GOCS.Component';
 
 /**
  * Game object components composite.
@@ -29,9 +29,11 @@ GOCS.Components = class {
     /**
      * Adds new game object component.
      * @param {GOCS.Component} c
+     * @returns {GOCS.Components}
      */
-    add(c) {
+    add(c):GOCS.Components {
         this.__components.push(c);
+        return this;
     }
 
     /**
@@ -39,7 +41,7 @@ GOCS.Components = class {
      * @param {Function} T Type of the aim game object component. (Eg., GOCS.Position).
      * @returns {GOCS.Component|null}
      */
-    get(T) {
+    get(T):GOCS.Component|null {
         const c = this.__components;
         for (let i of c) if (i instanceof T) return i;
         return null;

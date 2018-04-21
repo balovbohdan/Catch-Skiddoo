@@ -1,7 +1,6 @@
 import Game from "../Game";
-import Components from '../GOCS/GOCS.Components';
-import Position from "../GOCS/GOCS.Position";
-import Size from "../GOCS/GOCS.Size";
+import GOCS from '../GOCS/GOCS';
+import '../GOCS/GOCS.Components';
 
 /**
  * Game objects superclass.
@@ -9,13 +8,16 @@ import Size from "../GOCS/GOCS.Size";
  */
 class GameObject {
     /**
-     * Constructor
-     * @param {int} x
-     * @param {int} y
-     * @param {int} w
-     * @param {int} h
+     * Constructor.
+     *
+     * @param {Object} [params] Parameters of the game object.
+     *     @param {number} [params.x = 0] 'X' position.
+     *     @param {number} [params.y = 0] 'Y' position.
+     *     @param {number} [params.w = 0] Width.
+     *     @param {number} [params.h = 0] Height.
+     *     @param {number} [params.speed = 0] Speed.
      */
-    constructor(x, y, w, h) {
+    constructor(params:Object) {
         /**
          * Main game instance.
          * @type {Game}
@@ -31,11 +33,20 @@ class GameObject {
         this.__ctx = this.__game.getWindow().getCtx();
 
         /**
+         * Game object parameters.
+         * @type {Object}
+         * @private
+         */
+        this.__params = Object.assign(this._getDefParams(), params || {});
+
+        /**
          * Game object components.
          * @type {null|GOCS.Components}
          * @private
          */
-        this.__components = new Components([new Position(x, y), new Size(w, h)]);
+        this.__components = new GOCS.Components();
+
+        this._init();
     }
 
     /**
@@ -52,11 +63,20 @@ class GameObject {
     render() {}
 
     /**
+     * Returns game object speed.
+     * @returns {number}
+     */
+    getSpeed():number {
+        const speedComponent = this._getComponents().get(GOCS.Speed);
+        return speedComponent ? speedComponent.getSpeed() : 0;
+    }
+
+    /**
      * Says if object instance of "GameObject".
      * @param {*} o Object to check.
      * @returns {boolean}
      */
-    static isInst(o) {
+    static isInst(o):boolean {
         return o instanceof GameObject;
     }
 
@@ -67,21 +87,9 @@ class GameObject {
      * @returns {GameObject} Valid game object.
      * @throws {Error}
      */
-    static isInstStrict(o) {
+    static isInstStrict(o):GameObject {
         if (GameObject.isInst(o)) return o;
         throw new Error("Object is not instance of 'GameObject'.");
-    }
-
-    /**
-     * Adds game object component.
-     * @param {GOCS.Component|GOCS.Component[]} c
-     * @protected
-     * @throws {Error}
-     */
-    _addComponents(c:GOCS.Component|Array<GOCS.Component>) {
-        if (!c) throw new Error('Got invalid component(s) to add to game object.');
-        if (Array.isArray(c)) c.forEach(i => this.__components.add(i));
-        this.__components.add(c);
     }
 
     /**
@@ -89,7 +97,7 @@ class GameObject {
      * @returns {GOCS.Components}
      * @protected
      */
-    _getComponents() {
+    _getComponents():GOCS.Components {
         return this.__components;
     }
 
@@ -98,9 +106,37 @@ class GameObject {
      * @returns {CanvasRenderingContext2D}
      * @protected
      */
-    _getCtx() {
+    _getCtx():CanvasRenderingContext2D {
         return this.__ctx;
     }
+
+    /**
+     * Returns default game object parameters.
+     * @returns {Object}
+     * @protected
+     */
+    _getDefParams():Object {
+        return {
+            x: 0,
+            y: 0,
+            w: 0,
+            h: 0,
+            speed: 0
+        };
+    }
+
+    /**
+     * Returns game object parameters.
+     * @returns {Object}
+     * @protected
+     */
+    _getParams():Object { return this.__params; }
+
+    /**
+     * Initializes instance.
+     * @protected
+     */
+    _init() {}
 }
 
 export default GameObject;

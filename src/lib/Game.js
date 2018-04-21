@@ -1,8 +1,13 @@
-import GameObjects from "./gameObjects/GameObjects";
-import Player from "./gameObjects/Player";
-import EventsHandler from "./EventsHandler";
-import Window from "./Window";
-import GameLoop from "./GameLoop";
+import GameObjects from './gameObjects/GameObjects';
+import Player from './gameObjects/Player';
+
+import EventsSystem from './EventsSystem/EventsSystem';
+import './EventsSystem/EventsSystem.Handler';
+import './EventsSystem/EventsSystem.Names';
+import './EventsSystem/EventsSystem.CurrentEvents';
+
+import Window from './Window';
+import GameLoop from './GameLoop';
 
 /**
  * Main game class.
@@ -34,11 +39,18 @@ class Game {
         this.__gameObjects = new GameObjects();
 
         /**
-         * Instance that controls events.
-         * @type {EventsHandler}
+         * Current game events.
+         * @type {EventsSystem.CurrentEvents}
          * @private
          */
-        this.__eventsHandler = new EventsHandler();
+        this.__currentEvents = new EventsSystem.CurrentEvents();
+
+        /**
+         * Instance that controls events.
+         * @type {EventsSystem.Handler}
+         * @private
+         */
+        this.__eventsHandler = new EventsSystem.Handler();
 
         /**
          * Game window instance.
@@ -87,19 +99,27 @@ class Game {
     }
 
     /**
+     * Returns current events object.
+     * @returns {EventsSystem.CurrentEvents}
+     */
+    getCurrentEvents():EventsSystem.CurrentEvents {
+        return this.__currentEvents;
+    }
+
+    /**
      * Says if game is running right now.
      * @returns {boolean}
      */
-    getRunning() {
+    getRunning():boolean {
         return this.__running;
     }
 
     /**
-     * Says if object is instance of "Game".
+     * Says if object is instance of 'Game'.
      * @param {Object} game
      * @returns {boolean}
      */
-    static isInst(game) {
+    static isInst(game):boolean {
         return game instanceof Game;
     }
 
@@ -107,7 +127,7 @@ class Game {
      * Returns single instance of the current class.
      * @returns {Game}
      */
-    static getInst() {
+    static getInst():Game {
         return new Game();
     }
 
@@ -117,6 +137,7 @@ class Game {
      */
     __update() {
         this.__gameObjects.update();
+        this.getCurrentEvents().flush();
     }
 
     /**
@@ -133,7 +154,7 @@ class Game {
      * @private
      */
     __handleEvents() {
-        this.__eventsHandler.handleEvents();
+        this.__eventsHandler.handle();
     }
 
     /**
@@ -141,7 +162,7 @@ class Game {
      * @private
      */
     __unhandleEvents() {
-        this.__eventsHandler.unhandleEvents();
+        this.__eventsHandler.unhandle();
     }
 
     /**
@@ -149,7 +170,7 @@ class Game {
      * @private
      */
     __init() {
-        this.__gameObjects.add(new Player(10, 10, 30, 30));
+        this.__gameObjects.add(new Player({ x: 10, y: 10, w: 30, h: 30 }));
 
         this.__gameLoop.addListener(function () {
             this.__render();

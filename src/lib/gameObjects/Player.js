@@ -1,6 +1,9 @@
 import GameObject from './GameObject';
-import Position from '../GOCS/GOCS.Position';
-import Size from '../GOCS/GOCS.Size';
+
+import GOCS from '../GOCS/GOCS';
+import '../GOCS/GOCS.PlayerPosition';
+import '../GOCS/GOCS.Size';
+import '../GOCS/GOCS.Speed';
 
 /**
  * Player.
@@ -19,15 +22,37 @@ class Player extends GameObject {
 
     /**
      * Renders game object.
+     * @override
      */
     render() {
         const ctx = this._getCtx();
         const components = this._getComponents();
-        const position = components.get(Position);
-        const size = components.get(Size);
-        // if (!position || !size) return;
+        const position = components.get(GOCS.PlayerPosition);
+        const size = components.get(GOCS.Size);
         ctx.fillStyle = 'orangered';
         ctx.fillRect(position.x(), position.y(), size.w(), size.h());
+    }
+
+    /**
+     * Returns default player parameters.
+     * @returns {Object}
+     * @private
+     */
+    _getDefParams():Object {
+        return Object.assign(super._getDefParams(), { speed: 2 });
+    }
+
+    /**
+     * Initializes instance.
+     * @private
+     * @override
+     */
+    _init() {
+        const params = this._getParams();
+        const components = this._getComponents();
+        components.add(new GOCS.PlayerPosition(this, params.x, params.y));
+        components.add(new GOCS.Size(this, params.w, params.h));
+        components.add(new GOCS.Speed(this, params.speed));
     }
 }
 

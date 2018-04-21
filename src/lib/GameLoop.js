@@ -83,10 +83,8 @@ class GameLoop {
             if (!this.__game.getRunning()) return this.stop();
             const frameStart = Date.now();
             this.__getLoopCallback()();
-
-            const framePassedTime = Date.now() - frameStart,
-                  nextFrameDelay = Math.max(frameDelay - framePassedTime, frameDelay);
-
+            const framePassedTime = Date.now() - frameStart;
+            const nextFrameDelay = Math.max(frameDelay - framePassedTime, frameDelay);
             return setTimeout(this.__callLoopFunc.bind(this, loop.bind(this)), nextFrameDelay);
         }.bind(this))();
     }

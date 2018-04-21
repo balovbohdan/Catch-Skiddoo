@@ -1,4 +1,5 @@
 import GOCS from './GOCS';
+import GameObject from '../gameObjects/GameObject';
 
 /**
  * Game object components superclass.
@@ -9,14 +10,22 @@ import GOCS from './GOCS';
 GOCS.Component = class {
     /**
      * Constructor.
+     * @throws {Error}
      */
-    constructor() {
+    constructor(gameObject:GameObject) {
         /**
          * Component name.
          * @type {string}
          * @private
          */
         this.__name = 'Component';
+
+        /**
+         * Game object that uses this component.
+         * @type {GameObject}
+         * @private
+         */
+        this.__gameObject = GameObject.isInstStrict(gameObject);
     }
 
     /**
@@ -30,6 +39,13 @@ GOCS.Component = class {
      * @returns {string}
      */
     name():string { return this.__name; }
+
+    /**
+     * Returns game object that uses this component.
+     * @returns {GameObject}
+     * @protected
+     */
+    _getGameObject():GameObject { return this.__gameObject; }
 };
 
 export default GOCS.Component;

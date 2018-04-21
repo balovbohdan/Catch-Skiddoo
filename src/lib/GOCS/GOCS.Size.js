@@ -1,4 +1,5 @@
 import GOCS from './GOCS';
+import GameObject from '../gameObjects/GameObject';
 
 /**
  * Size component of game object.
@@ -7,11 +8,13 @@ import GOCS from './GOCS';
 GOCS.Size = class extends GOCS.Component {
     /**
      * Constructor.
+     * @param {GameObject} gameObject Game object that uses this component.
      * @param {int} [w = 0] Game object width.
      * @param {int} [h = 0] Game object height.
+     * @throws {Error}
      */
-    constructor(w, h) {
-        super();
+    constructor(gameObject:GameObject, w, h) {
+        super(gameObject);
 
         /**
          * Component name.
@@ -34,6 +37,11 @@ GOCS.Size = class extends GOCS.Component {
          */
         this.__h = h || 0;
     }
+
+    /**
+     * Updates component.
+     */
+    update() {}
 
     /**
      * Returns game int width.

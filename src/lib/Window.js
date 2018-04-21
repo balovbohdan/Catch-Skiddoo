@@ -92,6 +92,7 @@ class Window {
         this.__domContainer.width = document.documentElement.clientWidth;
         this.__domContainer.height = document.documentElement.clientHeight;
         document.body.appendChild(this.__domContainer);
+        document.body.style.overflow = 'hidden';
     }
 }
 
