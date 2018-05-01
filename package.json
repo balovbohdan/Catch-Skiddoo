@@ -14,6 +14,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
+    "browser-sync": "^2.23.7",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",

@@ -64,10 +64,33 @@ GOCS.PlayerPosition = class extends GOCS.Position {
 
         this.__events[EventsSystem.Names.KEYDOWN].forEach(keyCode => {
             if (!currEvts.isKeyDown(keyCode)) return;
-            const keyShortName = EventsSystem.KeyCodesToNames.codeToShortName(keyCode);
-            const mover = this['_move' + keyShortName];
-            if (typeof mover === 'function') mover.call(this);
+
+            this.__processMovement(keyCode);
+            this.__processDirection(keyCode);
         });
+    }
+
+    /**
+     * Processes changing of the player direction events.
+     * @param {number} keyCode Code of the key that player pressed.
+     * @private
+     */
+    __processDirection(keyCode:number) {
+        const KEYS = EventsSystem.KeyCodes;
+        const DIRS = GOCS.Direction;
+
+        // [BB: HERE.]
+    }
+
+    /**
+     * Processes movement events of the player.
+     * @param {number} keyCode Code of the key that player pressed.
+     * @private
+     */
+    __processMovement(keyCode:number) {
+        const keyShortName = EventsSystem.KeyCodesToNames.codeToShortName(keyCode);
+        const mover = this['_move' + keyShortName];
+        if (typeof mover === 'function') mover.call(this);
     }
 };
 

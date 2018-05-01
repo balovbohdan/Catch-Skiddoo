@@ -170,7 +170,7 @@ class Game {
      * @private
      */
     __init() {
-        this.__gameObjects.add(new Player({ x: 10, y: 10, w: 30, h: 30 }));
+        this.__gameObjects.add(new Player({ x: 10, y: 10, w: 64, h: 64 }));
 
         this.__gameLoop.addListener(function () {
             this.__render();

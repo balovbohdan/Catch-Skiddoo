@@ -10,12 +10,15 @@ import GameObject from '../gameObjects/GameObject';
 GOCS.Position = class extends GOCS.Component {
     /**
      * Constructor.
+     *
      * @param {GameObject} gameObject Game object that uses this component.
-     * @param {int} [x = 0] Initial 'X' coordinate.
-     * @param {int} [y = 0] Initial 'Y' coordinate.
+     * @param {Object} [params] Position parameters.
+     *     @param {number} [params.x = 0] Initial 'X' coordinate.
+     *     @param {number} [params.y = 0] Initial 'Y' coordinate.
+     *
      * @throws {Error}
      */
-    constructor(gameObject:GameObject, x, y) {
+    constructor(gameObject:GameObject, params:Object) {
         super(gameObject);
 
         /**
@@ -30,14 +33,14 @@ GOCS.Position = class extends GOCS.Component {
          * @type {number}
          * @private
          */
-        this.__x = x || 0;
+        this.__x = +params.x || 0;
 
         /**
          * 'Y' coordinate.
          * @type {number}
          * @private
          */
-        this.__y = y || 0;
+        this.__y = +params.y || 0;
     }
 
     /**
@@ -64,28 +67,28 @@ GOCS.Position = class extends GOCS.Component {
      * @returns {number} Increased 'X' Position.
      * @private
      */
-    __increaseX() { return this.__x += this.__getSpeed(); }
+    __increaseX():number { return this.__x += this.__getSpeed(); }
 
     /**
      * Decreases 'X' position.
      * @returns {number} Decreased 'X' position.
      * @private
      */
-    __decreaseX() { return this.__x -= this.__getSpeed(); }
+    __decreaseX():number { return this.__x -= this.__getSpeed(); }
 
     /**
      * Increases 'Y' position.
      * @returns {number} Increased 'Y' position.
      * @private
      */
-    __increaseY() { return this.__y += this.__getSpeed(); }
+    __increaseY():number { return this.__y += this.__getSpeed(); }
 
     /**
      * Decreases 'Y' position.
      * @returns {number} Decreased 'Y' position.
      * @private
      */
-    __decreaseY() { return this.__y -= this.__getSpeed(); }
+    __decreaseY():number { return this.__y -= this.__getSpeed(); }
 
     /**
      * Moves up.

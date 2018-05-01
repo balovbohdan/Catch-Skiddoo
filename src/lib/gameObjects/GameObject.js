@@ -1,4 +1,5 @@
 import Game from "../Game";
+import SpriteSheet from "../SpriteSheet";
 import GOCS from '../GOCS/GOCS';
 import '../GOCS/GOCS.Components';
 
@@ -46,6 +47,13 @@ class GameObject {
          */
         this.__components = new GOCS.Components();
 
+        /**
+         * Player sprite sheet.
+         * @type {SpriteSheet}
+         * @private
+         */
+        this.__spriteSheet = new SpriteSheet(SpriteSheet.getGameObjectsRoot() + 'bee-1.png');
+
         this._init();
     }
 
@@ -60,14 +68,31 @@ class GameObject {
      * Renders game object.
      * @abstract
      */
-    render() {}
+    render() {
+        const s = this.__getSpriteSheet();
+
+        s.load()
+            .then(() => {
+                const ctx = this._getCtx();
+                const components = this.__getComponents();
+                const position = components.get(GOCS.PlayerPosition);
+                const size = components.get(GOCS.Size);
+                const textureCoords = this.__getTextureCoords();
+
+                ctx.drawImage(
+                    s.get(),
+                    textureCoords[0], textureCoords[1], size.w(), size.h(),
+                    position.x(), position.y(), size.w(), size.h()
+                );
+            });
+    }
 
     /**
      * Returns game object speed.
      * @returns {number}
      */
     getSpeed():number {
-        const speedComponent = this._getComponents().get(GOCS.Speed);
+        const speedComponent = this.__getComponents().get(GOCS.Speed);
         return speedComponent ? speedComponent.getSpeed() : 0;
     }
 
@@ -97,7 +122,7 @@ class GameObject {
      * @returns {GOCS.Components}
      * @protected
      */
-    _getComponents():GOCS.Components {
+    __getComponents():GOCS.Components {
         return this.__components;
     }
 
@@ -130,13 +155,30 @@ class GameObject {
      * @returns {Object}
      * @protected
      */
-    _getParams():Object { return this.__params; }
+    __getParams():Object { return this.__params; }
+
+    /**
+     * Returns coordinates of the game object texture
+     * on the game object sprite sheet.
+     * @returns {Array}
+     * @protected
+     */
+    __getTextureCoords():Array { return [0, 0]; }
+
+    /**
+     * Returns game object sprite sheet.
+     * @returns {SpriteSheet}
+     * @private
+     */
+    __getSpriteSheet():SpriteSheet { return this.__spriteSheet; }
 
     /**
      * Initializes instance.
      * @protected
      */
-    _init() {}
+    _init() {
+        this.__spriteSheet.load().catch(console.warn.bind(null, 'Failed to load player texture.'));
+    }
 }
 
 export default GameObject;
