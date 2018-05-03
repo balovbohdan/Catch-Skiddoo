@@ -4,7 +4,8 @@
   "description": "Platformer game.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "flow": "flow"
   },
   "author": "Balov Bohdan",
   "license": "ISC",
@@ -16,6 +17,7 @@
     "babel-preset-flow": "^6.23.0",
     "browser-sync": "^2.23.7",
     "del": "^3.0.0",
+    "flow-bin": "^0.71.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",
     "gulp-browserify": "^0.5.1",

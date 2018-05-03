@@ -13,14 +13,14 @@ class Player extends GameObject {
     /**
      * Constructor.
      *
-     * @param {Object} [params] Parameters.
+     * @param {{}} [params] Parameters.
      *     @param {number} [params.x] 'X' coordinate.
      *     @param {number} [params.y] 'Y' coordinate.
      *     @param {number} [params.w] Width.
      *     @param {number} [params.h] Height.
      *     @param {number} [params.direction] Initial direction.
      */
-    constructor(params:Object) { super(params); }
+    constructor(params:{}) { super(params); }
 
     /**
      * Renders game object.
@@ -30,12 +30,10 @@ class Player extends GameObject {
 
     /**
      * Returns default player parameters.
-     * @returns {Object}
+     * @returns {{}}
      * @private
      */
-    _getDefParams():Object {
-        return Object.assign(super._getDefParams(), { speed: 2 });
-    }
+    _getDefParams():{} { return Object.assign(super._getDefParams(), { speed: 2 }); }
 
     /**
      * Returns sequence of game object direction and

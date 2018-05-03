@@ -9,8 +9,8 @@ GOCS.Size = class extends GOCS.Component {
     /**
      * Constructor.
      * @param {GameObject} gameObject Game object that uses this component.
-     * @param {int} [w = 0] Game object width.
-     * @param {int} [h = 0] Game object height.
+     * @param {number} [w = 0] Game object width.
+     * @param {number} [h = 0] Game object height.
      * @throws {Error}
      */
     constructor(gameObject:GameObject, w, h) {

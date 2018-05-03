@@ -17,8 +17,8 @@ GOCS.PlayerPosition = class extends GOCS.Position {
     /**
      * Constructor.
      * @param {GameObject} gameObject Game object that uses this component.
-     * @param {int} [x = 0] Initial 'X' coordinate.
-     * @param {int} [y = 0] Initial 'Y' coordinate.
+     * @param {number} [x = 0] Initial 'X' coordinate.
+     * @param {number} [y = 0] Initial 'Y' coordinate.
      * @throws {Error}
      */
     constructor(gameObject:GameObject, x, y) {

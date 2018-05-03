@@ -11,7 +11,7 @@ GOCS.Direction = class extends GOCS.Component {
      * Constructor.
      *
      * @param {GameObject} gameObject Game object that uses this component.
-     * @param {Object} [params] Parameters.
+     * @param {{}} [params] Parameters.
      *     @param {number} [params.direction = GOCS.Direction.BOTTOM_RIGHT] Initial direction. See constants.
      */
     constructor(gameObject:GameObject, params:{direction?:number}) {

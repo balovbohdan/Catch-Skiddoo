@@ -1,3 +1,5 @@
+/** @flow */
+
 import GameObjects from './gameObjects/GameObjects';
 import Player from './gameObjects/Player';
 
@@ -17,6 +19,13 @@ import GameLoop from './GameLoop';
  * @version 0.0.1
  */
 class Game {
+    __running:boolean = false;
+    __gameObjects:GameObjects;
+    __currentEvents:EventsSystem.CurrentEvents;
+    __eventsHandler:EventsSystem.Handler;
+    __window:Window;
+    __gameLoop:GameLoop;
+
     /**
      * Instance constructor.
      */
@@ -94,42 +103,32 @@ class Game {
      * Returns game window instance.
      * @returns {Window}
      */
-    getWindow() {
-        return this.__window;
-    }
+    getWindow() { return this.__window; }
 
     /**
      * Returns current events object.
      * @returns {EventsSystem.CurrentEvents}
      */
-    getCurrentEvents():EventsSystem.CurrentEvents {
-        return this.__currentEvents;
-    }
+    getCurrentEvents():EventsSystem.CurrentEvents { return this.__currentEvents; }
 
     /**
      * Says if game is running right now.
      * @returns {boolean}
      */
-    getRunning():boolean {
-        return this.__running;
-    }
+    getRunning():boolean { return this.__running; }
 
     /**
      * Says if object is instance of 'Game'.
-     * @param {Object} game
+     * @param {*} game
      * @returns {boolean}
      */
-    static isInst(game):boolean {
-        return game instanceof Game;
-    }
+    static isInst(game:mixed):boolean { return game instanceof Game; }
 
     /**
      * Returns single instance of the current class.
      * @returns {Game}
      */
-    static getInst():Game {
-        return new Game();
-    }
+    static getInst():Game { return new Game(); }
 
     /**
      * Updates game objects states.
@@ -153,17 +152,13 @@ class Game {
      * Applies events handlers.
      * @private
      */
-    __handleEvents() {
-        this.__eventsHandler.handle();
-    }
+    __handleEvents() { this.__eventsHandler.handle(); }
 
     /**
      * Stops events handling.
      * @private
      */
-    __unhandleEvents() {
-        this.__eventsHandler.unhandle();
-    }
+    __unhandleEvents() { this.__eventsHandler.unhandle(); }
 
     /**
      * Initializes instance.
@@ -177,13 +172,13 @@ class Game {
             this.__update();
         }.bind(this));
     }
-}
 
-/**
- * Single instance of the class.
- * @type {null|Game}
- * @private
- */
-Game.__inst = null;
+    /**
+     * Single instance of the class.
+     * @type {null|Game}
+     * @private
+     */
+    static __inst = null;
+}
 
 export default Game;

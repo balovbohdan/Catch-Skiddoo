@@ -11,14 +11,14 @@ class GameObject {
     /**
      * Constructor.
      *
-     * @param {Object} [params] Parameters of the game object.
+     * @param {{}} [params] Parameters of the game object.
      *     @param {number} [params.x = 0] 'X' position.
      *     @param {number} [params.y = 0] 'Y' position.
      *     @param {number} [params.w = 0] Width.
      *     @param {number} [params.h = 0] Height.
      *     @param {number} [params.speed = 0] Speed.
      */
-    constructor(params:Object) {
+    constructor(params:{}) {
         /**
          * Main game instance.
          * @type {Game}
@@ -35,7 +35,7 @@ class GameObject {
 
         /**
          * Game object parameters.
-         * @type {Object}
+         * @type {{}}
          * @private
          */
         this.__params = Object.assign(this._getDefParams(), params || {});
@@ -137,10 +137,10 @@ class GameObject {
 
     /**
      * Returns default game object parameters.
-     * @returns {Object}
+     * @returns {{}}
      * @protected
      */
-    _getDefParams():Object {
+    _getDefParams():{} {
         return {
             x: 0,
             y: 0,
@@ -152,10 +152,10 @@ class GameObject {
 
     /**
      * Returns game object parameters.
-     * @returns {Object}
+     * @returns {{}}
      * @protected
      */
-    __getParams():Object { return this.__params; }
+    __getParams():{} { return this.__params; }
 
     /**
      * Returns coordinates of the game object texture

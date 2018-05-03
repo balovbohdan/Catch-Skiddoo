@@ -46,9 +46,9 @@ EventsSystem.KeyCodesToNames = class {
     /**
      * Returns keyboard key data.
      * @param {number} keyCode Keyboard key code.
-     * @returns {Object} Keyboard key data.
+     * @returns {{}} Keyboard key data.
      */
-    static getNameDataByCode(keyCode:number):Object {
+    static getNameDataByCode(keyCode:number):{} {
         const keyNameData = EventsSystem.KeyCodesToNames.__getKeysData()[keyCode];
         if (!keyNameData) throw new Error(`Failed to look for keyboard key data by '${keyCode}' code.`);
         return keyNameData;
@@ -56,10 +56,10 @@ EventsSystem.KeyCodesToNames = class {
 
     /**
      * Returns keyboard keys data.
-     * @returns {Object}
+     * @returns {{}}
      * @private
      */
-    static __getKeysData():Object {
+    static __getKeysData():{} {
         const NAMES = EventsSystem.KeyNames;
 
         return {
